@@ -23,40 +23,43 @@ namespace server
             IPEndPoint IP = new IPEndPoint(IPAddress.Parse("10.0.0.1"), 9000);
             UdpClient server = new UdpClient(IP);
 
-            //Receive data på port 9000
-            byte[] receivedBytes = new byte[124];
-            IPEndPoint receive = new IPEndPoint(IPAddress.Any, 9000);
-
-            receivedBytes = server.Receive(ref receive);
-            string ReceivedString = Encoding.ASCII.GetString(receivedBytes);
-            ReceivedString = ReceivedString.ToUpper();
-
-            switch (ReceivedString)
+            while (true)
             {
-                case "U":
+                //Receive data på port 9000
+                byte[] receivedBytes = new byte[124];
+                IPEndPoint receive = new IPEndPoint(IPAddress.Any, 9000);
+
+                receivedBytes = server.Receive(ref receive);
+                string ReceivedString = Encoding.ASCII.GetString(receivedBytes);
+                ReceivedString = ReceivedString.ToUpper();
+
+                switch (ReceivedString)
                 {
-                    Console.WriteLine("U was Received");
+                    case "U":
+                        {
+                            Console.WriteLine("U was Received");
 
-                    string file = File.ReadAllText("/proc/uptime");
-                    byte[] sendBytes = Encoding.ASCII.GetBytes(file);
-                    server.Send(sendBytes, sendBytes.Length,receive.Address.ToString(),9000);
+                            string file = File.ReadAllText(@"/proc/uptime");
+                            byte[] sendBytes = Encoding.ASCII.GetBytes(file);
+                            server.Send(sendBytes, sendBytes.Length, receive);
 
-                    break;
+                            break;
+                        }
+                    case "L":
+                        {
+                            Console.WriteLine("L was Received");
+
+                            string file = File.ReadAllText(@"/proc/loadavg");
+                            byte[] sendBytes = Encoding.ASCII.GetBytes(file);
+                            server.Send(sendBytes, sendBytes.Length, receive);
+
+                            break;
+
+                        }
+                    default:
+                        Console.WriteLine("Something else was received: {0}", ReceivedString);
+                        break;
                 }
-                case "L":
-                {
-                    Console.WriteLine("L was Received");
-
-                    string file = File.ReadAllText("/proc/loadavg");
-                    byte[] sendBytes = Encoding.ASCII.GetBytes(file);
-                    server.Send(sendBytes, sendBytes.Length, receive.Address.ToString(), 9000);
-
-                    break;
-
-                }
-                default:
-                    Console.WriteLine("Something else was received: {0}", ReceivedString);
-                    break;
             }
         }
     }

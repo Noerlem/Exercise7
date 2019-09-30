@@ -29,15 +29,15 @@ namespace Client
 
             _client.Send(sendBytes, sendBytes.Length);
 
-
+            
             //Receive msg from server
-            IPEndPoint server = new IPEndPoint(IPAddress.Any, 9000);
-            Byte[] receivedBytes = _client.Receive(ref server);
+			IPEndPoint server = new IPEndPoint(IPAddress.Any, 9000);
+			Byte[] receivedBytes = _client.Receive(ref server);
             string receivedString = Encoding.ASCII.GetString(receivedBytes);
 
             Console.WriteLine("{0}", receivedString);
 
-        }
+		}
 
     }
 }
