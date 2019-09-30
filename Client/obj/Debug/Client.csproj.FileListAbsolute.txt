@@ -1,0 +1,7 @@
+D:\IKT\NGK\UDP_Server\Client\obj\Debug\Client.csprojAssemblyReference.cache
+D:\IKT\NGK\UDP_Server\Client\obj\Debug\Client.csproj.CoreCompileInputs.cache
+D:\IKT\NGK\UDP_Server\Client\bin\Debug\Client.exe.config
+D:\IKT\NGK\UDP_Server\Client\bin\Debug\Client.exe
+D:\IKT\NGK\UDP_Server\Client\bin\Debug\Client.pdb
+D:\IKT\NGK\UDP_Server\Client\obj\Debug\Client.exe
+D:\IKT\NGK\UDP_Server\Client\obj\Debug\Client.pdb
